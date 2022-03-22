@@ -5,9 +5,9 @@ __pycache__/
 .idea
 # C extensions
 *.so
-
+migrations/
 # Distribution / packaging
-.Python
+.Python`
 build/
 develop-eggs/
 dist/
