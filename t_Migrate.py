@@ -3,7 +3,9 @@ from flask_migrate import Migrate,MigrateCommand
 from flask_script import Manager
 from Shopping import create_app
 from comment.models import db
-
+"""
+    1、对数据库表的操作
+"""
 # 初始化app
 app = create_app('develop')
 manager = Manager(app)

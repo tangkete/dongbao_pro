@@ -12,7 +12,7 @@ def output_json(data, code, headers=None):
     # 定义自己的json格式规格
     if 'message' not in data:
         data = {
-            'message':'success',
+            'msg':'success',
             'data':data
         }
 
