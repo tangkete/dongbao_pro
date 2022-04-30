@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask
 from settings import map_config
-
+from flask import Flask
 
 # 创建app对象
 def create_app(config_type):
@@ -32,5 +31,7 @@ def create_app(config_type):
     # 加载并注册模块蓝图
     from Shopping.resources.user import user_bp
     app.register_blueprint(user_bp)
+    from Shopping.resources.index import index_bp
+    app.register_blueprint(index_bp)
 
     return app

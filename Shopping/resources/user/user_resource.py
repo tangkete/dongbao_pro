@@ -136,7 +136,7 @@ class RegisterUserResource(Resource):
             current_app.logger.info('{}手机已经注册.'.format(phone))
             return {'msg': 'The phone alerady exists.'}, 400
         # 如果不存在则将用户信息保存到数据库中, 密码要加密
-        # 要传pwd,不能传password
+        # 要传User中加密校验的参数pwd,不能传password
         u = User(username=username, phone=phone, pwd=password, email=email, status=0)
         db.session.add(u)
         db.session.commit()
@@ -152,8 +152,6 @@ class UpdateUserResource(Resource):
         rp.add_argument('note', required=False)
         rp.add_argument('icon', type=parser.regex('(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]'),required=False)
         rp.add_argument('nick_name', required=False)
-        rp.add_argument('note', required=False)
-        rp.add_argument('note', required=False)
 
 
 

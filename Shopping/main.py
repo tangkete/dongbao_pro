@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-# sys.path.append(os.path.dirname(__file__))
 from Shopping import create_app
-from settings import map_config
+
+path = os.path.dirname(sys.path[0]) # 得到当前项目绝对路径
+if path and path not in sys.path:
+    sys.path.append(path) # 把当前项目的路径追加到系统环境变量中
+
 
 app = create_app('develop')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8899, debug=True)
