@@ -35,7 +35,7 @@ class Shopping_Category(Resource):
                 return data
             else:
                 current_app.logger.info("data is none!")
-                return {'msg':'data is none!'}
+                return {'message':'data is none!'}
 
     @staticmethod
     def getDate(parent_id):

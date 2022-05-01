@@ -12,5 +12,5 @@ def login_required(func):
         if g.user_id is not None: # user_id非空，已经登录过
             return func(*args, **kwargs)
         else:
-            return {'msg': 'Invalid token'}, 400
+            return {'message': 'Invalid token'}, 400
     return wrapper

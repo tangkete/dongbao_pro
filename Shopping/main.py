@@ -8,7 +8,7 @@ if path and path not in sys.path:
     sys.path.append(path) # 把当前项目的路径追加到系统环境变量中
 
 
-app = create_app('product')
+app = create_app('develop')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

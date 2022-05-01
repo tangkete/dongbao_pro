@@ -38,6 +38,9 @@ class Shopping_user(Resource):
         return {'msg': 'hello put测试'}
 
 class SendMessage(Resource):
+    """
+        获取手机验证码
+    """
     # get_remote_address 获取客户端远程ip地址
     error_message = 'To many requests.'
     decorators = [
@@ -97,10 +100,10 @@ class AuthorizationCodeResource(Resource):
             real_code = redis_client.get(key) # 从redis中返回的是字节数据
         except ConnectionError as e:
             current_app.logger.error(e)
-            return {'msg':'redis db connect error...'}, 400
+            return {'message':'redis db connect error...'}, 400
         # 开始校验
         if not real_code or real_code.decode() != code:
-            return {'msg':'Invalid code.'}, 400
+            return {'message':'验证码错误或已失效.'}, 400
         return {'phone':phone, 'msg':'code success.'}
 
 class RegisterUserResource(Resource):
@@ -128,13 +131,13 @@ class RegisterUserResource(Resource):
         uphone = User.query.filter(User.phone == phone).first()
         if uname:
             current_app.logger.info('{}用户已经存在'.format(username))
-            return {'msg':'The username alerady exists.'}, 400
+            return {'message':'The username alerady exists.'}, 400
         if uemail:
             current_app.logger.info('{}邮箱已注册'.format(email))
-            return {'msg':'The email alerady exists.'}, 400
+            return {'message':'The email alerady exists.'}, 400
         if uphone:
             current_app.logger.info('{}手机已经注册.'.format(phone))
-            return {'msg': 'The phone alerady exists.'}, 400
+            return {'message': 'The phone alerady exists.'}, 400
         # 如果不存在则将用户信息保存到数据库中, 密码要加密
         # 要传User中加密校验的参数pwd,不能传password
         u = User(username=username, phone=phone, pwd=password, email=email, status=0)
@@ -164,7 +167,7 @@ class UserLoginResource(Resource):
         password = request.form.get('password')
 
         if not all([username, password]): # 如果username 或者 password不存在
-            return {'msg':'check username & password'}, 400
+            return {'message':'用户名或者密码不允许为空.'}, 400
 
         user = User.query.filter(User.username == username).first()
         if user:
@@ -174,5 +177,20 @@ class UserLoginResource(Resource):
                 # verify_tokens(token)
                 return {'msg': 'Login Success.', 'token': token, 'user_id': user.id}
 
-        return {'msg': '用户名或者密码错误'}, 400
+        return {'message': '用户名或者密码错误'}, 400
 
+class IsExistPhoneResource(Resource):
+    """
+        判断手机号码是否存在
+    """
+    def post(self):
+        phone = request.form.get('phone')
+        if len(phone) == 11 and phone.isdigit() and phone[0].isdigit():
+            user = User.query.filter(User.phone == phone).first()
+            if user:
+                current_app.logger.info('{}手机号码已注册,{}'.format(phone, type(phone)))
+                # 因为返回有message ，所以不需要用到output_json 封装
+                return {'code': 203, 'isExist': True, 'message': '手机号码已经注册'}
+            return {'msg':'手机号可以注册'}
+        else:
+            return {'code': 201, 'message': '请输入11位数的手机号码'}

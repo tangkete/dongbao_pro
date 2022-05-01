@@ -12,7 +12,8 @@ def output_json(data, code, headers=None):
     # 定义自己的json格式规格
     if 'message' not in data:
         data = {
-            'msg':'success',
+            # 'message':'success',
+            'code':200, # 自动把状态码封装到json中
             'data':data
         }
 
