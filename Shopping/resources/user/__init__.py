@@ -19,10 +19,11 @@ user_api.representation('application/json')(output_json)
 
 # 加载当前资源模块
 from Shopping.resources.user.user_resource import Shopping_user, SendMessage, AuthorizationCodeResource, RegisterUserResource,\
-    UserLoginResource,IsExistPhoneResource
+    UserLoginResource,IsExistPhoneResource,UserLoginOutResource
 user_api.add_resource(Shopping_user, '/user', endpoint='user') # 请求路径为{ip}/user/user
 user_api.add_resource(SendMessage, '/sms', endpoint='sms') # 请求路径为{ip}/user/sms
 user_api.add_resource(AuthorizationCodeResource, '/authorization', endpoint='authorization')
 user_api.add_resource(RegisterUserResource, '/register', endpoint='register')
 user_api.add_resource(UserLoginResource, '/login', endpoint='login') # /user/login
 user_api.add_resource(IsExistPhoneResource, '/isExist', endpoint='isExist')
+user_api.add_resource(UserLoginOutResource, '/loginOut', endpoint='loginOut')

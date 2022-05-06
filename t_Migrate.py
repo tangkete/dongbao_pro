@@ -21,4 +21,3 @@ if __name__ == '__main__':
         python3 t_Migrate.py db upgrade
     """
     manager.run()
-

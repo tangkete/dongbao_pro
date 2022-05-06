@@ -2,6 +2,7 @@
 """
     定义请求钩子：
     在请求进来之前得到request携带的token，并且验证token
+    注意：用户没有登录前是没有token的
 """
 from flask import g,request,current_app
 from comment.utils.tokens_jwt import verify_tokens
@@ -13,7 +14,7 @@ def jwt_request_authorization():
     g.user_id = None # 定义一个变量user_id
     try:
         token = request.headers.get('token') # 从请求头得到token
-        current_app.logger.info('token:{}'.format(token))
+        # current_app.logger.info('token:{}'.format(token))
     except Exception as e:
         current_app.logger.info('请求头中没有token:{}'.format(e))
         return

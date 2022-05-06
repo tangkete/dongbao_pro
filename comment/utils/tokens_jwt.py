@@ -32,18 +32,18 @@ def verify_tokens(token_str):
     """
     try:
         data = jwt.decode(token_str, key=const.ACCESS_KEY, algorithms='HS256')
-        current_app.logger.info('data:{}'.format(data))
+        # current_app.logger.info('data:{}'.format(data))
     except PyJWTError as e:
-        current_app.logger.error(e)
-        return {'message': e}
+        # current_app.logger.error(e)
+        return {'msg': e}
     user = User.query.filter(User.id == data['id']).first()
     if not user:
         try:
             return
         except Exception as e:
-            return {'message': '{}用户不存在了.e'.format(user.username, e)}
+            return {'msg': '{}用户不存在了.e'.format(user.username, e)}
     else:
         if user and user.status != 0: # 如果数据库中存在user这个用户并且状态不是0 的话， 那么账号就是异常 未激活或者过期状态
-            return {'message': '账号过期'}
+            return {'msg': '账号过期'}
 
-        return {'id': user.id}
+    return {'id': user.id}

@@ -5,7 +5,7 @@ from ronglian_sms_sdk import SmsSDK
 from comment.utils.decorators import login_required
 from comment.utils.limiter import limiter as lmt
 from comment.models.user import User
-from flask import current_app, request
+from flask import current_app, request, g
 from . import constants
 from flask_limiter.util import get_remote_address
 import json
@@ -175,9 +175,18 @@ class UserLoginResource(Resource):
                 # 把登录成功后的用户id 得到token，token返回给前端
                 token = jwt_tokens(user.id)
                 # verify_tokens(token)
-                return {'msg': 'Login Success.', 'token': token, 'user_id': user.id}
+                return {'msg': 'Login Success.', 'token': token, 'user_id': user.id, 'username': user.username}, 200
 
         return {'message': '用户名或者密码错误'}, 400
+
+class UserLoginOutResource(Resource):
+    """
+    退出登录
+    """
+    def post(self):
+        if g.user_id:
+            g.user_id = None
+        return {"msg": "退出登录"} ,200
 
 class IsExistPhoneResource(Resource):
     """
@@ -194,3 +203,4 @@ class IsExistPhoneResource(Resource):
             return {'msg':'手机号可以注册'}
         else:
             return {'code': 201, 'message': '请输入11位数的手机号码'}
+
