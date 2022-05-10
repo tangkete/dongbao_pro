@@ -195,7 +195,7 @@ class IsExistPhoneResource(Resource):
     def post(self):
         phone = request.form.get('phone')
         if len(phone) == 11 and phone.isdigit() and phone[0].isdigit():
-            user = User.query.filter(User.phone == phone).first()
+            user = User.query.filter(User.phone == phone).all()
             if user:
                 current_app.logger.info('{}手机号码已注册,{}'.format(phone, type(phone)))
                 # 因为返回有message ，所以不需要用到output_json 封装

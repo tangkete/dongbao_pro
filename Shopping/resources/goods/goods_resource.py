@@ -200,7 +200,7 @@ class Goods_GoodSkuDetail(Resource):
             sku_data['specTypeList'] = specTypeList
             return sku_data
         else:
-            return {'msg': 'none'}
+            return {'msg': 'data is none.'}
 
     @staticmethod
     def get_sku_by_id(sku_id):

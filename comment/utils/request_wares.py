@@ -11,7 +11,7 @@ def jwt_request_authorization():
     自定义请求钩子函数，把验证通过的token，得到的用户id保存到全局变量中
     :return:
     """
-    g.user_id = None # 定义一个变量user_id
+    g.user_id = None  # 定义一个变量user_id
     try:
         token = request.headers.get('token') # 从请求头得到token
         # current_app.logger.info('token:{}'.format(token))
