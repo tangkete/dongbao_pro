@@ -19,10 +19,10 @@ class Config:
 
 
     # 日志配置
-    LOGGING_LEVEL = 'INFO' #级别
-    LOGGING_FILE_DIR = 'logs/' # 路径
-    LOGGING_FILE_MAX_BYTES = 300 * 1024 * 1024 # 最大日志文件大小
-    LOGGING_FILE_BACKUP = 30 # 备份日志个数
+    LOGGING_LEVEL = 'INFO'  #级别
+    LOGGING_FILE_DIR = 'logs/'  # 路径
+    LOGGING_FILE_MAX_BYTES = 300 * 1024 * 1024  # 最大日志文件大小
+    LOGGING_FILE_BACKUP = 30  # 备份日志个数
 
 
     # 限流器采用Redis保存数据，需要安装flask-redis， 使用实例0
@@ -38,7 +38,7 @@ class Config:
 # 开发环境配置信息
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_ECHO = True # 是否打印SQL语句
+    SQLALCHEMY_ECHO = False  # 是否打印SQL语句
 
 
 # 生产环境配置信息

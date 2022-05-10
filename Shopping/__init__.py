@@ -33,5 +33,9 @@ def create_app(config_type):
     app.register_blueprint(user_bp)
     from Shopping.resources.index import index_bp
     app.register_blueprint(index_bp)
+    from Shopping.resources.goods import goods_bp
+    app.register_blueprint(goods_bp)
+    from Shopping.resources.test import test_bp
+    app.register_blueprint(test_bp)
 
     return app

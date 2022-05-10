@@ -133,6 +133,7 @@ class Shopping_RecommendSubject(Resource):
                     else:
                         data[i]['productList'] = ''
                 redis_client.setex("index_recommend_subject", 3600*24, json.dumps(data))
+                # print(data)
                 return data
             else:
                 return {'msg': 'data is none'}

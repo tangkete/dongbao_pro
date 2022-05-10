@@ -166,7 +166,7 @@ class UserLoginResource(Resource):
         username = request.form.get('username')
         password = request.form.get('password')
 
-        if not all([username, password]): # 如果username 或者 password不存在
+        if not any([username, password]): # 如果username 或者 password不存在
             return {'message':'用户名或者密码不允许为空.'}, 400
 
         user = User.query.filter(User.username == username).first()
